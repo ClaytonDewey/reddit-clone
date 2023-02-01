@@ -9,3 +9,5 @@ export default function App({ Component, pageProps }: AppProps) {
     </ChakraProvider>
   );
 }
+
+// https://www.youtube.com/watch?v=rCm5RVYKWVg - 13:56
