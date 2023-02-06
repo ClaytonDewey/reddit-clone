@@ -3,15 +3,14 @@ import { Button, Flex, Input, Text } from '@chakra-ui/react';
 import { useSetRecoilState } from 'recoil';
 import { authModalState } from '@/src/atoms/authModalAtom';
 
-type LoginProps = {};
-
-const Login: React.FC<LoginProps> = () => {
+const Login: React.FC = () => {
   const setAuthModalState = useSetRecoilState(authModalState);
   const [loginForm, setLoginForm] = useState({
     email: '',
     password: '',
   });
 
+  // Firebase login
   const onSubmit = () => {};
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
