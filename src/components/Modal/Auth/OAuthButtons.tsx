@@ -1,10 +1,16 @@
 import { Button, Flex, Image, Text } from '@chakra-ui/react';
+import { User } from 'firebase/auth';
 import React from 'react';
 import { useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import { auth } from '../../../firebase/clientApp';
 
 const OAuthButtons: React.FC = () => {
-  const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
+  const [signInWithGoogle, userCred, loading, error] = useSignInWithGoogle(
+    auth
+  );
+
+  const createUserDocument = async (user: User) => {};
+
   return (
     <Flex direction='column' width='100%' mb={4}>
       <Button
@@ -27,3 +33,6 @@ const OAuthButtons: React.FC = () => {
   );
 };
 export default OAuthButtons;
+
+// https://www.youtube.com/watch?v=rCm5RVYKWVg
+// 3:42:09
