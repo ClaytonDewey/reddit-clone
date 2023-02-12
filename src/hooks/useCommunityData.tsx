@@ -5,7 +5,7 @@ import {
   increment,
   writeBatch,
 } from 'firebase/firestore';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { authModalState } from '../atoms/authModalAtom';
