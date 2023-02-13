@@ -13,6 +13,7 @@ import {
 } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import PostLoader from './PostForm/PostLoader';
 import PostItem from './PostItem';
 
 type PostsProps = {
@@ -32,6 +33,7 @@ const Posts: React.FC<PostsProps> = ({ communityData }) => {
 
   const getPosts = async () => {
     try {
+      setLoading(true);
       // get posts for this community
       const postsQuery = query(
         collection(firestore, 'posts'),
@@ -51,6 +53,7 @@ const Posts: React.FC<PostsProps> = ({ communityData }) => {
     } catch (error: any) {
       console.error('getPosts error', error.message);
     }
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -58,19 +61,25 @@ const Posts: React.FC<PostsProps> = ({ communityData }) => {
   }, []);
 
   return (
-    <Stack>
-      {postStateValue.posts.map((item) => (
-        <PostItem
-          key={item.title}
-          post={item}
-          userIsCreator={user?.uid === item.creatorId}
-          userVoteValue={undefined}
-          onVote={onVote}
-          onSelectPost={onSelectPost}
-          onDeletePost={onDeletePost}
-        />
-      ))}
-    </Stack>
+    <>
+      {loading ? (
+        <PostLoader />
+      ) : (
+        <Stack>
+          {postStateValue.posts.map((item) => (
+            <PostItem
+              key={item.id}
+              post={item}
+              userIsCreator={user?.uid === item.creatorId}
+              userVoteValue={undefined}
+              onVote={onVote}
+              onSelectPost={onSelectPost}
+              onDeletePost={onDeletePost}
+            />
+          ))}
+        </Stack>
+      )}
+    </>
   );
 };
 export default Posts;
