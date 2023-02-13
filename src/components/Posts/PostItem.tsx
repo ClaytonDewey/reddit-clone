@@ -1,7 +1,7 @@
 import { Post } from '@/src/atoms/postsAtom';
-import { Flex, Icon, Image, Stack, Text } from '@chakra-ui/react';
+import { Flex, Icon, Image, Skeleton, Stack, Text } from '@chakra-ui/react';
 import moment from 'moment';
-import React from 'react';
+import React, { useState } from 'react';
 import { AiOutlineDelete } from 'react-icons/ai';
 import { BsChat, BsDot } from 'react-icons/bs';
 import { FaReddit } from 'react-icons/fa';
@@ -31,6 +31,8 @@ const PostItem: React.FC<PostItemProps> = ({
   onDeletePost,
   onSelectPost,
 }) => {
+  const [loadingImage, setLoadingImage] = useState(true);
+
   return (
     <Flex
       border='1px solid'
@@ -39,14 +41,16 @@ const PostItem: React.FC<PostItemProps> = ({
       borderRadius={4}
       _hover={{ borderColor: 'gray.500' }}
       cursor='pointer'
-      onClick={onSelectPost}>
+      onClick={onSelectPost}
+    >
       <Flex
         direction='column'
         align='center'
         bg='gray.100'
         p={2}
         width='40px'
-        borderRadius={4}>
+        borderRadius={4}
+      >
         <Icon
           as={
             userVoteValue === 1 ? IoArrowUpCircleSharp : IoArrowUpCircleOutline
@@ -84,7 +88,16 @@ const PostItem: React.FC<PostItemProps> = ({
           <Text fontSize='10pt'>{post.body}</Text>
           {post.imageURL && (
             <Flex justify='center' align='center' p={2}>
-              <Image src={post.imageURL} alt='Post Image' maxHeight='460px' />
+              {loadingImage && (
+                <Skeleton height='200px' width='100%' borderRadius={4} />
+              )}
+              <Image
+                src={post.imageURL}
+                alt='Post Image'
+                maxHeight='460px'
+                display={loadingImage ? 'none' : 'unset'}
+                onLoad={() => setLoadingImage(false)}
+              />
             </Flex>
           )}
         </Stack>
@@ -94,7 +107,8 @@ const PostItem: React.FC<PostItemProps> = ({
             p='8px 10px'
             borderRadius={4}
             _hover={{ bg: 'gray.200' }}
-            cursor='pointer'>
+            cursor='pointer'
+          >
             <Icon as={BsChat} mr={2} />
             <Text fontSize='9pt'>{post.numberOfComments}</Text>
           </Flex>
@@ -103,7 +117,8 @@ const PostItem: React.FC<PostItemProps> = ({
             p='8px 10px'
             borderRadius={4}
             _hover={{ bg: 'gray.200' }}
-            cursor='pointer'>
+            cursor='pointer'
+          >
             <Icon as={IoArrowRedoOutline} mr={2} />
             <Text fontSize='9pt'>Share</Text>
           </Flex>
@@ -112,7 +127,8 @@ const PostItem: React.FC<PostItemProps> = ({
             p='8px 10px'
             borderRadius={4}
             _hover={{ bg: 'gray.200' }}
-            cursor='pointer'>
+            cursor='pointer'
+          >
             <Icon as={IoBookmarkOutline} mr={2} />
             <Text fontSize='9pt'>Save</Text>
           </Flex>
@@ -123,7 +139,8 @@ const PostItem: React.FC<PostItemProps> = ({
               borderRadius={4}
               _hover={{ bg: 'gray.200' }}
               cursor='pointer'
-              onClick={onDeletePost}>
+              onClick={onDeletePost}
+            >
               <Icon as={AiOutlineDelete} mr={2} />
               <Text fontSize='9pt'>Delete</Text>
             </Flex>
