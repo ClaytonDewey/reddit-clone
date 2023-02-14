@@ -53,7 +53,7 @@ const About: React.FC<AboutProps> = ({ communityData }) => {
         } as Community,
       }));
     } catch (error) {
-      console.log('onUpdateImage error', error);
+      console.error('onUpdateImage error', error);
     }
     setUploadingImage(false);
   };
