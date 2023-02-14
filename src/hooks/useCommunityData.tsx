@@ -18,8 +18,9 @@ import { auth, firestore } from '../firebase/clientApp';
 
 const useCommunityData = () => {
   const [user] = useAuthState(auth);
-  const [communityStateValue, setCommunityStateValue] =
-    useRecoilState(communityState);
+  const [communityStateValue, setCommunityStateValue] = useRecoilState(
+    communityState
+  );
   const setAuthModalState = useSetRecoilState(authModalState);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -72,7 +73,7 @@ const useCommunityData = () => {
 
       const newSnippet: CommunitySnippet = {
         communityId: communityData.id,
-        imageURL: communityData.imageUrl || '',
+        imageURL: communityData.imageURL || '',
       };
 
       batch.set(
