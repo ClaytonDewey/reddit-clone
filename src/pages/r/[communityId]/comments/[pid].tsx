@@ -16,9 +16,15 @@ const PostPage: React.FC = () => {
   } = usePosts();
   const router = useRouter();
 
-  const fetchPosts = async (postId: string) => {};
+  const fetchPost = async (postId: string) => {};
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    const { pid } = router.query;
+
+    if (pid && !postStateValue.selectedPost) {
+      fetchPost(pid as string);
+    }
+  }, [router.query, postStateValue.selectedPost]);
 
   return (
     <PageContent>
