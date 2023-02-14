@@ -49,7 +49,7 @@ const Posts: React.FC<PostsProps> = ({ communityData }) => {
         posts: posts as Post[],
       }));
 
-      console.log('posts', posts);
+      // console.log('posts', posts);
     } catch (error: any) {
       console.error('getPosts error', error.message);
     }
@@ -71,7 +71,10 @@ const Posts: React.FC<PostsProps> = ({ communityData }) => {
               key={item.id}
               post={item}
               userIsCreator={user?.uid === item.creatorId}
-              userVoteValue={undefined}
+              userVoteValue={
+                postStateValue.postVotes.find((vote) => vote.postId === item.id)
+                  ?.voteValue
+              }
               onVote={onVote}
               onSelectPost={onSelectPost}
               onDeletePost={onDeletePost}
