@@ -68,15 +68,13 @@ const useCommunityData = () => {
   };
 
   const joinCommunity = async (communityData: Community) => {
-    // batch write
-    // creating a new community snippet
-
     try {
       const batch = writeBatch(firestore);
 
       const newSnippet: CommunitySnippet = {
         communityId: communityData.id,
         imageURL: communityData.imageURL || '',
+        isModerator: user?.uid === communityData.creatorId,
       };
 
       batch.set(
