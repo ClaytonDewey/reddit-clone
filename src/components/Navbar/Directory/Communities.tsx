@@ -17,9 +17,11 @@ const Communities: React.FC<CommunitiesProps> = () => {
     <>
       <CreateCommunityModal open={open} handleClose={() => setOpen(false)} />
       <Box mt={3} mb={4}>
-        <Text pl={3} mb={1} fontSize='7pt' fontWeight={700} color='gray.500'>
-          MODERATING
-        </Text>
+        {mySnippets.filter((snippet) => snippet.isModerator).length > 0 && (
+          <Text pl={3} mb={1} fontSize='7pt' fontWeight={700} color='gray.500'>
+            MODERATING
+          </Text>
+        )}
 
         {mySnippets
           .filter((snippet) => snippet.isModerator)
