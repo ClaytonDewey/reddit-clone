@@ -22,6 +22,7 @@ import {
   serverTimestamp,
   setDoc,
 } from 'firebase/firestore';
+import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { BsFillEyeFill, BsFillPersonFill } from 'react-icons/bs';
@@ -43,6 +44,7 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
   const [communityType, setCommunityType] = useState('public');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.value.length > 21) return;
@@ -101,7 +103,8 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
       console.error('handleCreateCommunity error', error);
       setError(error.message);
     }
-
+    handleClose();
+    router.push(`r/${communityName}`);
     setLoading(false);
   };
 
@@ -114,7 +117,8 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
             display='flex'
             flexDirection='column'
             fontSize={15}
-            padding={3}>
+            padding={3}
+          >
             Create a Community
           </ModalHeader>
           <Box pl={3} pr={3}>
@@ -131,7 +135,8 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
                 top='28px'
                 left='10px'
                 width='20px'
-                color='gray.400'>
+                color='gray.400'
+              >
                 r/
               </Text>
               <Input
@@ -143,7 +148,8 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
               />
               <Text
                 fontSize='9pt'
-                color={charsRemaining === 0 ? 'red' : 'gray.500'}>
+                color={charsRemaining === 0 ? 'red' : 'gray.500'}
+              >
                 {charsRemaining} Characters remaining
               </Text>
               <Text fontSize='9pt' color='red' mt={1}>
@@ -158,7 +164,8 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
                   <Checkbox
                     name='public'
                     isChecked={communityType === 'public'}
-                    onChange={onCommunityTypeChange}>
+                    onChange={onCommunityTypeChange}
+                  >
                     <Flex align='center'>
                       <Icon as={BsFillPersonFill} color='gray.500' mr={2} />
                       <Text fontSize='10pt' mr={1}>
@@ -172,7 +179,8 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
                   <Checkbox
                     name='restricted'
                     isChecked={communityType === 'restricted'}
-                    onChange={onCommunityTypeChange}>
+                    onChange={onCommunityTypeChange}
+                  >
                     <Flex align='center'>
                       <Icon as={BsFillEyeFill} color='gray.500' mr={2} />
                       <Text fontSize='10pt' mr={1}>
@@ -187,7 +195,8 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
                   <Checkbox
                     name='private'
                     isChecked={communityType === 'private'}
-                    onChange={onCommunityTypeChange}>
+                    onChange={onCommunityTypeChange}
+                  >
                     <Flex align='center'>
                       <Icon as={HiLockClosed} color='gray.500' mr={2} />
                       <Text fontSize='10pt' mr={1}>
@@ -209,13 +218,15 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
               variant='outline'
               height='30px'
               mr={3}
-              onClick={handleClose}>
+              onClick={handleClose}
+            >
               Cancel
             </Button>
             <Button
               height='30px'
               onClick={handleCreateCommunity}
-              isLoading={loading}>
+              isLoading={loading}
+            >
               Create Community
             </Button>
           </ModalFooter>
