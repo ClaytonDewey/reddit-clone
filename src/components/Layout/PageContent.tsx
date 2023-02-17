@@ -3,17 +3,19 @@ import React from 'react';
 
 type PageContentProps = {
   children: {};
+  maxWidth?: string;
 };
 
-const PageContent: React.FC<PageContentProps> = ({ children }) => {
+const PageContent: React.FC<PageContentProps> = ({ children, maxWidth }) => {
   return (
     <Flex justify='center' padding='16px 0px'>
-      <Flex width='95%' maxWidth='860px'>
+      <Flex width='95%' maxWidth={maxWidth || '860px'}>
         {/* LHS */}
         <Flex
           direction='column'
           width={{ base: '100%', md: '65%' }}
-          mr={{ base: 0, md: 6 }}>
+          mr={{ base: 0, md: 6 }}
+        >
           {children && children[0 as keyof typeof children]}
         </Flex>
 
@@ -21,7 +23,8 @@ const PageContent: React.FC<PageContentProps> = ({ children }) => {
         <Flex
           direction='column'
           display={{ base: 'none', md: 'flex' }}
-          flexGrow={1}>
+          flexGrow={1}
+        >
           {children && children[1 as keyof typeof children]}
         </Flex>
       </Flex>
