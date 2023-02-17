@@ -7,7 +7,7 @@ import { useRecoilValue } from 'recoil';
 import { communityState } from '../../../atoms/communitiesAtom';
 import About from '../../../components/Community/About';
 import PageContentLayout from '../../../components/Layout/PageContent';
-import NewPostForm from '@/src/components/Posts/NewPostForm';
+import NewPostForm from '../../../components/Posts/NewPostForm';
 import { auth } from '../../../firebase/clientApp';
 import useCommunityData from '../../../hooks/useCommunityData';
 
@@ -24,7 +24,7 @@ const CreateCommmunityPostPage: NextPage = () => {
    * Attempting to redirect user if not authenticated
    */
   useEffect(() => {
-    if (!user && !loadingUser && communityStateValue.currentCommunity.id) {
+    if (!user && !loadingUser && communityStateValue.currentCommunity?.id) {
       router.push(`/r/${communityStateValue.currentCommunity.id}`);
     }
   }, [user, loadingUser, communityStateValue.currentCommunity]);
@@ -39,8 +39,8 @@ const CreateCommmunityPostPage: NextPage = () => {
         </Box>
         {user && (
           <NewPostForm
-            communityId={communityStateValue.currentCommunity.id}
-            communityImageURL={communityStateValue.currentCommunity.imageURL}
+            communityId={communityStateValue.currentCommunity?.id}
+            communityImageURL={communityStateValue.currentCommunity?.imageURL}
             user={user}
           />
         )}
