@@ -28,7 +28,7 @@ const useCommunityData = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const onJoinOrLeaveCommunity = (
+  const onJoinLeaveCommunity = (
     communityData: Community,
     isJoined: boolean
   ) => {
@@ -59,6 +59,7 @@ const useCommunityData = () => {
       setCommunityStateValue((prev) => ({
         ...prev,
         mySnippets: snippets as CommunitySnippet[],
+        snippetsFetched: true,
       }));
     } catch (error: any) {
       console.error('getMySnippets error', error);
@@ -160,6 +161,7 @@ const useCommunityData = () => {
       setCommunityStateValue((prev) => ({
         ...prev,
         mySnippets: [],
+        snippetsFetched: false,
       }));
       return;
     }
@@ -176,7 +178,7 @@ const useCommunityData = () => {
 
   return {
     communityStateValue,
-    onJoinOrLeaveCommunity,
+    onJoinLeaveCommunity,
     loading,
   };
 };
